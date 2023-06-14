@@ -77,6 +77,9 @@ public class SistPedidosInt extends JFrame {
 		JMenuItem itemLiberacao = new JMenuItem("Liberação de acesso em unidades");
 		menuSEI.add(itemLiberacao);
 
+		JMenuItem itemManutencao = new JMenuItem("Manutenção do sistema");
+		menuSEI.add(itemManutencao);
+		
 		JMenuItem itemCriacao = new JMenuItem("Criação de unidade no SEI");
 		menuSEI.add(itemCriacao);
 
@@ -92,10 +95,12 @@ public class SistPedidosInt extends JFrame {
 		auth = new Autenticar();
 		Liberacao tl = new Liberacao();
 		Criacao tc = new Criacao();
+		Manutencao tm = new Manutencao();
 
 		container.add(tva,"telaI");
 		container.add(auth,"telaAutenticacao");
 		container.add(tl,"telaLiberacao");
+		container.add(tm,"telaManutencao");
 		container.add(tc,"telaCriacao");
 
 		itemAutenticar.addActionListener(new ActionListener() {
@@ -118,6 +123,14 @@ public class SistPedidosInt extends JFrame {
 				card.show(container, "telaCriacao");
 			}
 		});
+		itemManutencao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				card.show(container, "telaManutencao");
+			}
+		});
+		
+		
 	}
 
 	public JMenuItem getItemSair() {
