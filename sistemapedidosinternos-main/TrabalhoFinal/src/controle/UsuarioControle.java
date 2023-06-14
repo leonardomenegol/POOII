@@ -41,6 +41,8 @@ public class UsuarioControle implements ActionListener  {
 		if (usuarioDAO.autenticaUsuario(usuario)) {
 			// Mostra o menu SEI no caso de usuário autenticado
 			sistPI.getJMenuBar().getMenu(4).setEnabled(true);
+			//limpeza dos dados da tela
+			auth.setVisible(false);
 		} else {
 			System.out.println("Usuário e/ou senha incorretos!");
 		}
