@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import dao.UsuarioDAO;
 import modelo.Usuario;
 import visao.Autenticar;
 import visao.SistPedidosInt;
 
-public class UsuarioControle implements ActionListener  {
+public class UsuarioControle implements ActionListener {
 
 	private Usuario usuario;
 	private UsuarioDAO usuarioDAO;
@@ -22,7 +24,7 @@ public class UsuarioControle implements ActionListener  {
 		this.sistPI = sistPI;
 		auth = sistPI.auth;
 
-		//Colocar os ActionListener aqui
+		// Colocar os ActionListener aqui
 		auth.getButtonAutenticar().addActionListener(this);
 		auth.getButtonCancelar().addActionListener(this);
 		sistPI.getItemSair().addActionListener(this);
@@ -41,15 +43,17 @@ public class UsuarioControle implements ActionListener  {
 		if (usuarioDAO.autenticaUsuario(usuario)) {
 			// Mostra o menu SEI no caso de usuário autenticado
 			sistPI.getJMenuBar().getMenu(4).setEnabled(true);
-			//limpeza dos dados da tela
-			auth.setVisible(false);
+			auth.getTextUsuario().setText("");
+			auth.getFieldSenha().setText("");
+			// auth.setVisible(false);
 		} else {
-			System.out.println("Usuário e/ou senha incorretos!");
+			JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!", "Erro de autenticação",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
 
-	public void salvaPedidoInterno () {
+	public void salvaPedidoInterno() {
 	}
 
 	public void fechaJanelas() {
@@ -62,7 +66,11 @@ public class UsuarioControle implements ActionListener  {
 		} else if (e.getActionCommand().equals("Cancelar")) {
 			auth.setVisible(false);
 		} else if (e.getActionCommand().equals("Sair")) {
-			sistPI.dispose();
+			int resposta = JOptionPane.showConfirmDialog(sistPI, "Você tem certeza que deseja sair?",
+					"Confirmação de saída", JOptionPane.YES_NO_OPTION);
+			if (resposta == JOptionPane.YES_OPTION) {
+				sistPI.dispose();
+			}
 		}
 	}
 }
